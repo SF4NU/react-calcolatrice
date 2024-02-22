@@ -31,16 +31,16 @@ function Calcolatrice() {
   return (
     <>
       <section>
-        <div className="risultato-div">
-          <div className="risultato">{calculation}</div>
-        </div>
         <div className="tasti">
+          <div className="risultato-div">
+            <span className="risultato">{calculation}</span>
+          </div>
           <div className="tasti-div">
             <div className="tasto" onClick={addToCalculation}>
               C
             </div>
             <div className="tasto" onClick={addToCalculation}>
-              ()
+              <span class="material-symbols-outlined">backspace</span>
             </div>
             <div className="tasto" onClick={addToCalculation}>
               %
