@@ -1,33 +1,35 @@
 body {
   font-size: 4rem;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  background-color: #C5CACF
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: #c5cacf;
 }
 html {
--webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 section {
-display: flex;
-align-items: center;
-justify-content: center;
-margin-top: 50px;
-flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  flex-direction: column;
 }
 .risultato-div {
-display: flex;
-justify-content: flex-end;
-align-items: flex-end;
-width: 318px;
-height: auto;
-color: #D3F3EE;
-font-size: 2.2rem;
-overflow: auto;
-overflow-wrap: break-word;
-margin-bottom: 35px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 318px;
+  height: auto;
+  color: #d3f3ee;
+  font-size: 2.2rem;
+  overflow: auto;
+  overflow-wrap: break-word;
+  margin-bottom: 35px;
+  flex-wrap: wrap;
 }
+
 .risultato {
-display: inline-block;
-user-select: none;
+  user-select: none;
 }
 .display-result {
   position: absolute;
@@ -38,90 +40,88 @@ user-select: none;
   opacity: 0.8;
 }
 .tasti {
-display: flex;
-padding: 25px;
-flex-direction: column;
-  background-color: #005C69;
-border-radius: 50px;
-box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.25);
-position: relative;
-padding-bottom: 60px;
+  display: flex;
+  padding: 25px;
+  flex-direction: column;
+  background-color: #005c69;
+  border-radius: 50px;
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.25);
+  position: relative;
+  padding-bottom: 60px;
 }
 .tasti-div {
-display: flex;
+  display: flex;
 }
 .tasti-div div {
-display: flex;
-align-items: center;
-justify-content: center;
-width: 85px;
-height: 80px;
-max-width: 160px;
-color: #d3f3ee;
-cursor: pointer;
-user-select: none;
-transition: color 0.15s, background-color 0.15s;
-border: 0.1px solid #7fb7be;
-border-radius: 15px;
-box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.15);
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 85px;
+  height: 80px;
+  max-width: 160px;
+  color: #d3f3ee;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s, background-color 0.15s;
+  border: 0.1px solid #7fb7be;
+  border-radius: 15px;
+  box-shadow: inset -5px -5px 5px rgba(0, 0, 0, 0.15);
 }
 .tasti-div div:hover {
-color: #005c69;
-background-color: #d3f3ee;
+  color: #005c69;
+  background-color: #d3f3ee;
 }
 .tasti-div div:active {
-background-color: #93b7be;
-color: #f1fffa;
+  background-color: #93b7be;
+  color: #f1fffa;
 }
 .tasti-div div span:active {
-position: absolute;
-animation: move 0.5s ease;
+  position: absolute;
+  animation: move 0.5s ease;
 }
 
 .tasto-zero {
-padding-left: 42.5px;
-padding-right: 43.5px;
+  padding-left: 42.5px;
+  padding-right: 43.5px;
 }
 .material-symbols-outlined {
-font-size: 4rem;
-
+  font-size: 4rem;
 }
 @keyframes move {
-0% {
-  transform: translate(0);
-}
-100% {
-  transform: translateY(5px);
-}
+  0% {
+    transform: translate(0);
+  }
+  100% {
+    transform: translateY(5px);
+  }
 }
 .change-colors {
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-position: absolute;
-bottom: 10px;
-left: 0;
-right: 30px;
-padding-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 30px;
+  padding-bottom: 5px;
 }
 .colors {
-height: 30px;
-width: 30px;
-background-color: black;
-margin-left: 30px;
-border-radius: 30px;
-cursor: pointer;
+  height: 30px;
+  width: 30px;
+  background-color: black;
+  margin-left: 30px;
+  border-radius: 30px;
+  cursor: pointer;
 }
 
 .flashing-cursor {
   position: absolute;
-  top: 27px;
+  top: 23px;
   right: 53px;
   width: 2px; /* Adjust the width of the cursor */
   height: 45px; /* Adjust the height of the cursor */
-  background-color: #D3F3EE; /* Adjust the color of the cursor */
+  background-color: #d3f3ee; /* Adjust the color of the cursor */
   animation: blink-animation 1s infinite; /* Blinking animation */
 }
 

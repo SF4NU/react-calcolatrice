@@ -54,6 +54,10 @@ function Calcolatrice() {
     }
   });
 
+  function roundToTwoDecimals(num) {
+    return Math.floor(num * 100) / 100;
+  }
+
   async function resolveCalculation() {
     try {
       const check = calculation[calculation.length - 1];
@@ -65,7 +69,8 @@ function Calcolatrice() {
         console.log("trueeeeeeeeeeee");
       }
       const calculate = () => {
-        let result = parseFloat(eval(calculation).toFixed(2));
+        let result = parseFloat(eval(calculation));
+        result = roundToTwoDecimals(result);
         setCalculation((c) => (c = String(result)));
         setDisplay((d) => (d = ""));
         setCheckDot(true);
@@ -130,6 +135,7 @@ function Calcolatrice() {
     if (calculation.length > 0 && calculation !== "0") {
       setCalculation(calculation.slice(0, -1));
       checkParenthesis();
+      setCheckDot(false);
       if (count > 0) {
       setCount(c => c - 1)
       }
@@ -143,7 +149,8 @@ function Calcolatrice() {
         calculation[calculation.length - 1] === "*("
       ) {
       } else {
-        let result = parseFloat(eval(calculation).toFixed(2));
+        let result = parseFloat(eval(calculation));
+        result = roundToTwoDecimals(result);
         setDisplay((d) => (d = result));
       }
     } catch (error) {
