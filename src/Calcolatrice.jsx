@@ -6,11 +6,12 @@ function Calcolatrice() {
   const [checkIfParenthesis, setCheckIfParenthesis] = useState(false);
 
   function addToCalculation(number) {
+    const check = calculation[calculation.length - 1];
     if (calculation === "0") {
       console.log("hello");
       setCalculation((c) => (c = ""));
       setCalculation((c) => c + number);
-    } else if (calculation !== "0") {
+    } else if (calculation !== "0" && check !== ")") {
       setCalculation((c) => c + number);
     }
   }
@@ -27,73 +28,94 @@ function Calcolatrice() {
 
   useEffect(() => {
     displayResult();
-    console.log(display);
+    console.log(checkIfParenthesis);
     if (calculation.length === 0) {
       setCalculation((c) => (c = "0"));
     }
   });
 
-  function resolveCalculation() {
+  async function resolveCalculation() {
     try {
-      let result = parseFloat(eval(calculation).toFixed(2));
-      setCalculation((c) => (c = result));
-      setDisplay((d) => (d = ""));
+      const check = calculation[calculation.length - 1];
+      const operators = ["+", "-", "*", "/", "("];
+      if (check !== ")" && !operators.includes(check)) {
+        await setCalculation((c) => c + ")");
+        checkIfParenthesis = false;
+        console.log("trueeeeeeeeeeee");
+      }
+      const calculate = () => {
+        let result = parseFloat(eval(calculation).toFixed(2));
+        setCalculation((c) => (c = String(result)));
+        setDisplay((d) => (d = ""));
+      };
+      await calculate();
     } catch (error) {
       console.log(error);
     }
   }
 
   function addParenthesis() {
-    const checkIfZero = parseFloat(calculation.charAt(0))
+    const checkIfZero = parseFloat(calculation.charAt(0));
+    const check = calculation[calculation.length - 1];
+    const operators = ["+", "-", "*", "/", "("];
     if (!checkIfParenthesis) {
       setCheckIfParenthesis(true);
-        if (calculation === "0") {
-            setCalculation("");
-        }
-        const check = calculation[calculation.length - 1];
-        const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9","("];
-        if (numbers.includes(check) && checkIfZero) {
-            setCalculation((c) => c + "*(");
+      if (calculation === "0") {
+        setCalculation("");
+      }
+      const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      if (numbers.includes(check) && checkIfZero) {
+        setCalculation((c) => c + "*(");
+      } else if (check !== "(") {
+        if (check === ")") {
+          setCalculation((c) => c + "*(");
         } else {
-            setCalculation((c) => c + "(");
+          setCalculation((c) => c + "(");
         }
-    } else {
-        setCalculation((c) => c + ")");
-        setCheckIfParenthesis(false);
+      }
+    } else if (!operators.includes(check)) {
+      setCalculation((c) => c + ")");
+      setCheckIfParenthesis(false);
     }
-}
+  }
 
   function clearCalculation() {
     setCalculation((c) => (c = "0"));
     setDisplay((d) => (d = ""));
+    setCheckIfParenthesis(false);
+  }
+
+  function checkParenthesis() {
+    const checkIf = calculation[calculation.length - 1];
+    const parenthesis = ["*(", "(", ")"];
+    if (parenthesis.includes(checkIf)) {
+      if (!checkIfParenthesis) {
+        setCheckIfParenthesis(true);
+      } else {
+        setCheckIfParenthesis(false);
+      }
+    }
   }
 
   function removeOne() {
-    const checkIf = calculation[calculation.length - 1]
-    const parenthesis = ["*(", "(", ")"];
     if (calculation.length > 0 && calculation !== "0") {
       setCalculation(calculation.slice(0, -1));
-      if (parenthesis.includes(checkIf)) {
-        if (!checkIfParenthesis) {
-          setCheckIfParenthesis(true);
-        } else {
-          setCheckIfParenthesis(false);
-        }
-      }
+      checkParenthesis();
     }
   }
 
   function displayResult() {
     try {
-        if (calculation[calculation.length - 1] === "(" && calculation[calculation.length - 1] === "*(") {
-          console.log("error");
-        }
-        else {
-          let result = parseFloat(eval(calculation).toFixed(2));
-      setDisplay((d) => (d = result));
-        }
+      if (
+        calculation[calculation.length - 1] === "(" &&
+        calculation[calculation.length - 1] === "*("
+      ) {
+      } else {
+        let result = parseFloat(eval(calculation).toFixed(2));
+        setDisplay((d) => (d = result));
+      }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
@@ -105,8 +127,10 @@ function Calcolatrice() {
             <span id="real-time-result">{display}</span>
           </div>
           <div className="risultato-div">
-            <span className="risultato">{calculation}<div class="flashing-cursor"></div>
-</span>
+            <span className="risultato">
+              {calculation}
+              <div className="flashing-cursor"></div>
+            </span>
           </div>
           <div className="tasti-div">
             <div className="tasto" onClick={clearCalculation}>
