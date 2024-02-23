@@ -20,10 +20,20 @@ align-items: end;
 width: 318px;
 color: #D3F3EE;
 overflow: auto;
+font-size: 2.5rem;
+margin-bottom: 35px;
 }
 .risultato {
 display: inline-block;
 user-select: none;
+}
+.display-result {
+  position: absolute;
+  font-size: 1.5rem;
+  color: antiquewhite;
+  right: 80px;
+  top: 70px;
+  opacity: 0.8;
 }
 .tasti {
 display: flex;

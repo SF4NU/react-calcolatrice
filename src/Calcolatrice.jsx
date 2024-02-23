@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Calcolatrice() {
   const [calculation, setCalculation] = useState("0");
-  const [symbol, setSymbol] = useState("");
-  const [saveFirstNumber, setSaveFirstNumber] = useState();
-  const [saveSecondNumber, setSaveSecondNumber] = useState();
+  const [display, setDisplay] = useState();
 
   function addToCalculation(number) {
     if (calculation === "0") {
@@ -16,15 +14,47 @@ function Calcolatrice() {
     }
   }
 
-  function calculateTotal(equation) {
-    if (symbol === "") {
-      setSymbol((s) => (s = equation));
+  function addOperator(operator) {
+    if (calculation !== "0") {
+      setCalculation((c) => c + operator);
     }
-    if (!saveFirstNumber) {
-      setSaveFirstNumber((fn) => (fn = calculation));
+  }
+
+  useEffect(() => {
+    displayResult();
+    console.log(display);
+    if (calculation.length === 0) {
       setCalculation((c) => (c = "0"));
-    } else if (!saveSecondNumber) {
-      setSaveSecondNumber((sn) => (sn = calculation));
+    }
+  });
+
+  function resolveCalculation() {
+    try {
+      let result = parseFloat(eval(calculation).toFixed(2));
+      setCalculation((c) => (c = result));
+      setDisplay((d) => (d = ""));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function clearCalculation() {
+    setCalculation((c) => (c = "0"));
+    setDisplay((d) => (d = ""));
+  }
+
+  function removeOne() {
+    if (calculation.length > 0 && calculation !== "0") {
+      setCalculation(calculation.slice(0, -1));
+    }
+  }
+
+  function displayResult() {
+    try {
+      let result = parseFloat(eval(calculation).toFixed(2));
+      setDisplay((d) => (d = result));
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -32,21 +62,24 @@ function Calcolatrice() {
     <>
       <section>
         <div className="tasti">
+          <div className="display-result">
+            <span id="real-time-result">{display}</span>
+          </div>
           <div className="risultato-div">
             <span className="risultato">{calculation}</span>
           </div>
           <div className="tasti-div">
-            <div className="tasto" onClick={addToCalculation}>
+            <div className="tasto" onClick={clearCalculation}>
               C
             </div>
-            <div className="tasto" onClick={addToCalculation}>
-              <span class="material-symbols-outlined">backspace</span>
-            </div>
-            <div className="tasto" onClick={addToCalculation}>
+            <div className="tasto" onClick={() => addOperator("%")}>
               %
             </div>
-            <div className="tasto" onClick={addToCalculation}>
-              /
+            <div className="tasto" onClick={removeOne}>
+              <span className="material-symbols-outlined">backspace</span>
+            </div>
+            <div className="tasto" onClick={() => addOperator("/")}>
+              ÷
             </div>
           </div>
           <div className="tasti-div">
@@ -59,8 +92,8 @@ function Calcolatrice() {
             <div className="tasto" onClick={() => addToCalculation("9")}>
               9
             </div>
-            <div className="tasto" onClick={addToCalculation}>
-              x
+            <div className="tasto" onClick={() => addOperator("*")}>
+              ×
             </div>
           </div>
           <div className="tasti-div">
@@ -73,7 +106,7 @@ function Calcolatrice() {
             <div className="tasto" onClick={() => addToCalculation("6")}>
               6
             </div>
-            <div className="tasto" onClick={addToCalculation}>
+            <div className="tasto" onClick={() => addOperator("-")}>
               -
             </div>
           </div>
@@ -87,7 +120,7 @@ function Calcolatrice() {
             <div className="tasto" onClick={() => addToCalculation("3")}>
               3
             </div>
-            <div className="tasto" onClick={() => calculateTotal("+")}>
+            <div className="tasto" onClick={() => addOperator("+")}>
               +
             </div>
           </div>
@@ -100,7 +133,7 @@ function Calcolatrice() {
             <div className="tasto" onClick={() => addToCalculation(".")}>
               ,
             </div>
-            <div className="tasto" onClick={addToCalculation}>
+            <div className="tasto" onClick={resolveCalculation}>
               =
             </div>
           </div>
