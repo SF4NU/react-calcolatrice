@@ -15,13 +15,14 @@ flex-direction: column;
 }
 .risultato-div {
 display: flex;
-flex-direction: column-reverse;
 justify-content: flex-end;
 align-items: flex-end;
 width: 318px;
+height: auto;
 color: #D3F3EE;
-font-size: 2.5rem;
-overflow-y: auto;
+font-size: 2.2rem;
+overflow: auto;
+overflow-wrap: break-word;
 margin-bottom: 35px;
 }
 .risultato {

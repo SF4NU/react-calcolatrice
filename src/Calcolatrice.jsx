@@ -5,6 +5,7 @@ function Calcolatrice() {
   const [display, setDisplay] = useState();
   const [checkIfParenthesis, setCheckIfParenthesis] = useState(false);
   const [checkDot, setCheckDot] = useState(false);
+  const [count, setCount] = useState(0);
 
   function addToCalculation(number) {
     const check = calculation[calculation.length - 1];
@@ -12,8 +13,12 @@ function Calcolatrice() {
       console.log("hello");
       setCalculation((c) => (c = ""));
       setCalculation((c) => c + number);
+      setCount((c) => c + 1);
     } else if (calculation !== "0" && check !== ")") {
-      setCalculation((c) => c + number);
+      if (count < 12) {
+        setCalculation((c) => c + number);
+        setCount((c) => c + 1);
+      }
     }
   }
 
@@ -22,6 +27,7 @@ function Calcolatrice() {
     const operators = ["+", "-", "*", "/", "(", ".", ")"];
     if (!checkDot && !operators.includes(check)) {
       setCalculation((c) => c + ".");
+      setCount((c) => c + 1);
       setCheckDot(true);
     }
   }
@@ -32,9 +38,11 @@ function Calcolatrice() {
     if (calculation !== "0" && operators.includes(check)) {
       setCalculation(calculation.slice(0, -1) + operator);
       setCheckDot(false);
+      setCount((c) => (c = 0));
     } else if (calculation !== "0" && check !== "(") {
       setCalculation((c) => c + operator);
       setCheckDot(false);
+      setCount((c) => (c = 0));
     }
   }
 
@@ -61,6 +69,7 @@ function Calcolatrice() {
         setCalculation((c) => (c = String(result)));
         setDisplay((d) => (d = ""));
         setCheckDot(true);
+        setCount((c) => (c = 0));
       };
       await calculate();
     } catch (error) {
@@ -79,7 +88,7 @@ function Calcolatrice() {
       const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
       if (numbers.includes(check) && checkIfZero && check !== ".") {
         setCheckIfParenthesis(true);
-
+        setCount((c) => (c = 0));
         setCalculation((c) => c + "*(");
       } else if (check !== "(" && check !== ".") {
         setCheckIfParenthesis(true);
@@ -93,6 +102,7 @@ function Calcolatrice() {
     } else if (!operators.includes(check) && check !== ".") {
       setCalculation((c) => c + ")");
       setCheckIfParenthesis(false);
+      setCount((c) => (c = 0));
     }
   }
 
@@ -101,6 +111,7 @@ function Calcolatrice() {
     setDisplay((d) => (d = ""));
     setCheckIfParenthesis(false);
     setCheckDot(false);
+    setCount(c => c = 0);
   }
 
   function checkParenthesis() {
@@ -119,6 +130,9 @@ function Calcolatrice() {
     if (calculation.length > 0 && calculation !== "0") {
       setCalculation(calculation.slice(0, -1));
       checkParenthesis();
+      if (count > 0) {
+      setCount(c => c - 1)
+      }
     }
   }
 
