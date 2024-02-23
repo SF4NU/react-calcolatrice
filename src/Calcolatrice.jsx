@@ -116,7 +116,7 @@ function Calcolatrice() {
     setDisplay((d) => (d = ""));
     setCheckIfParenthesis(false);
     setCheckDot(false);
-    setCount(c => c = 0);
+    setCount((c) => (c = 0));
   }
 
   function checkParenthesis() {
@@ -137,7 +137,7 @@ function Calcolatrice() {
       checkParenthesis();
       setCheckDot(false);
       if (count > 0) {
-      setCount(c => c - 1)
+        setCount((c) => c - 1);
       }
     }
   }
@@ -155,6 +155,19 @@ function Calcolatrice() {
       }
     } catch (error) {
       // console.log(error);
+    }
+  }
+
+  function changeColors(colors) {
+    if (colors === "black-white") {
+      document.querySelector(".tasti").style.backgroundColor = "#2F3031";
+      document.querySelector(".tasti").style.color = "#D3F3EE";
+    } else if ((colors === "default")) {
+      document.querySelector(".tasti").style.backgroundColor = "#005c69";
+      document.querySelector(".tasti").style.color = "#D3F3EE";
+    } else if (colors === "indigo-blue") {
+      document.querySelector(".tasti").style.backgroundColor = "#460fc7";
+      document.querySelector(".tasti").style.color = "white";
     }
   }
 
@@ -239,6 +252,17 @@ function Calcolatrice() {
             <div className="tasto" onClick={resolveCalculation}>
               =
             </div>
+          </div>
+          <div className="change-colors">
+            <div
+              className="colors black-white"
+              onClick={() => changeColors("black-white")}></div>
+            <div
+              className="colors default"
+              onClick={() => changeColors("default")}></div>
+            <div
+              className="colors indigo-blue"
+              onClick={() => changeColors("indigo-blue")}></div>
           </div>
         </div>
       </section>
