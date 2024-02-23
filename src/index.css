@@ -15,12 +15,13 @@ flex-direction: column;
 }
 .risultato-div {
 display: flex;
-justify-content: end;
-align-items: end;
+flex-direction: column-reverse;
+justify-content: flex-end;
+align-items: flex-end;
 width: 318px;
 color: #D3F3EE;
-overflow: auto;
 font-size: 2.5rem;
+overflow-y: auto;
 margin-bottom: 35px;
 }
 .risultato {

@@ -4,6 +4,7 @@ function Calcolatrice() {
   const [calculation, setCalculation] = useState("0");
   const [display, setDisplay] = useState();
   const [checkIfParenthesis, setCheckIfParenthesis] = useState(false);
+  const [checkDot, setCheckDot] = useState(false);
 
   function addToCalculation(number) {
     const check = calculation[calculation.length - 1];
@@ -16,13 +17,24 @@ function Calcolatrice() {
     }
   }
 
+  function addDot(dot) {
+    const check = calculation[calculation.length - 1];
+    const operators = ["+", "-", "*", "/", "(", ".", ")"];
+    if (!checkDot && !operators.includes(check)) {
+      setCalculation((c) => c + ".");
+      setCheckDot(true);
+    }
+  }
+
   function addOperator(operator) {
-    const operators = ["+", "-", "*", "/"];
+    const operators = ["+", "-", "*", "/", "."];
     const check = calculation[calculation.length - 1];
     if (calculation !== "0" && operators.includes(check)) {
       setCalculation(calculation.slice(0, -1) + operator);
+      setCheckDot(false);
     } else if (calculation !== "0" && check !== "(") {
       setCalculation((c) => c + operator);
+      setCheckDot(false);
     }
   }
 
@@ -37,10 +49,10 @@ function Calcolatrice() {
   async function resolveCalculation() {
     try {
       const check = calculation[calculation.length - 1];
-      const operators = ["+", "-", "*", "/", "("];
-      if (check !== ")" && !operators.includes(check)) {
+      const operators = ["+", "-", "*", "/", "(", "."];
+      if (check !== ")" && !operators.includes(check) && checkIfParenthesis) {
         await setCalculation((c) => c + ")");
-        checkIfParenthesis = false;
+        setCheckIfParenthesis(false);
         console.log("trueeeeeeeeeeee");
       }
       const calculate = () => {
@@ -57,23 +69,26 @@ function Calcolatrice() {
   function addParenthesis() {
     const checkIfZero = parseFloat(calculation.charAt(0));
     const check = calculation[calculation.length - 1];
-    const operators = ["+", "-", "*", "/", "("];
+    const operators = ["+", "-", "*", "/", "(", "."];
     if (!checkIfParenthesis) {
-      setCheckIfParenthesis(true);
       if (calculation === "0") {
         setCalculation("");
       }
       const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-      if (numbers.includes(check) && checkIfZero) {
+      if (numbers.includes(check) && checkIfZero && check !== ".") {
+        setCheckIfParenthesis(true);
+
         setCalculation((c) => c + "*(");
-      } else if (check !== "(") {
+      } else if (check !== "(" && check !== ".") {
+        setCheckIfParenthesis(true);
+
         if (check === ")") {
           setCalculation((c) => c + "*(");
         } else {
           setCalculation((c) => c + "(");
         }
       }
-    } else if (!operators.includes(check)) {
+    } else if (!operators.includes(check) && check !== ".") {
       setCalculation((c) => c + ")");
       setCheckIfParenthesis(false);
     }
@@ -83,6 +98,7 @@ function Calcolatrice() {
     setCalculation((c) => (c = "0"));
     setDisplay((d) => (d = ""));
     setCheckIfParenthesis(false);
+    setCheckDot(false);
   }
 
   function checkParenthesis() {
@@ -194,7 +210,7 @@ function Calcolatrice() {
               onClick={() => addToCalculation("0")}>
               0
             </div>
-            <div className="tasto" onClick={() => addToCalculation(".")}>
+            <div className="tasto" onClick={() => addDot(".")}>
               ,
             </div>
             <div className="tasto" onClick={resolveCalculation}>
