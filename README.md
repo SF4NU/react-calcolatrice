@@ -2,14 +2,11 @@
 
 ![Immagine 2024-02-23 165410](https://github.com/SF4NU/react-calcolatrice/assets/129513838/67248d5f-5a8d-4c73-bf3f-402e1dc7cd71)
 
-
-
 # Calcolatrice React.js
 
 Questa è una semplice calcolatrice implementata in React.js che consente agli utenti di eseguire operazioni matematiche di base.
 
 ## Funzionalità principali
-![Immagine 2024-02-23 165410](https://github.com/SF4NU/react-calcolatrice/assets/129513838/052a7a06-6bf6-4e43-a886-0c06e3ef4db6)
 
 - Aggiunta, sottrazione, moltiplicazione e divisione di numeri.
 - Gestione delle parentesi.
@@ -19,7 +16,6 @@ Questa è una semplice calcolatrice implementata in React.js che consente agli u
 
 - React.js
 - CSS
-
 
 ## Come utilizzare
 
