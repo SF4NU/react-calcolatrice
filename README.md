@@ -11,6 +11,7 @@ Questa è una semplice calcolatrice implementata in React.js che consente agli u
 - Aggiunta, sottrazione, moltiplicazione e divisione di numeri.
 - Gestione delle parentesi.
 - Cancellazione di un carattere alla volta.
+- Approssimazione dei risultati fino a due numeri dopo la virgola.
 
 ## Tecnologie utilizzate
 
@@ -26,7 +27,7 @@ Questa è una semplice calcolatrice implementata in React.js che consente agli u
 
 2. Entra nella directory del progetto:
    ```sh
-   cd calcolatrice-react
+   cd react-calcolatrice
    ```
 
 3. Installa le dipendenze:
@@ -36,7 +37,7 @@ Questa è una semplice calcolatrice implementata in React.js che consente agli u
 
 4. Avvia l'applicazione in modalità di sviluppo:
    ```sh
-   npm start
+   npm run dev
    ```
 
 5. Apri il tuo browser e vai all'indirizzo http://localhost:#### per vedere la calcolatrice.
