@@ -53,12 +53,14 @@ function Calcolatrice() {
       if (check !== ")" && !operators.includes(check) && checkIfParenthesis) {
         await setCalculation((c) => c + ")");
         setCheckIfParenthesis(false);
+        setCheckDot(true);
         console.log("trueeeeeeeeeeee");
       }
       const calculate = () => {
         let result = parseFloat(eval(calculation).toFixed(2));
         setCalculation((c) => (c = String(result)));
         setDisplay((d) => (d = ""));
+        setCheckDot(true);
       };
       await calculate();
     } catch (error) {
