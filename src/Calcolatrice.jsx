@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 function Calcolatrice() {
   const [calculation, setCalculation] = useState("0");
   const [display, setDisplay] = useState();
+  const [checkIfParenthesis, setCheckIfParenthesis] = useState(false);
 
   function addToCalculation(number) {
     if (calculation === "0") {
@@ -15,7 +16,11 @@ function Calcolatrice() {
   }
 
   function addOperator(operator) {
-    if (calculation !== "0") {
+    const operators = ["+", "-", "*", "/"];
+    const check = calculation[calculation.length - 1];
+    if (calculation !== "0" && operators.includes(check)) {
+      setCalculation(calculation.slice(0, -1) + operator);
+    } else if (calculation !== "0" && check !== "(") {
       setCalculation((c) => c + operator);
     }
   }
@@ -38,21 +43,55 @@ function Calcolatrice() {
     }
   }
 
+  function addParenthesis() {
+    const checkIfZero = parseFloat(calculation.charAt(0))
+    if (!checkIfParenthesis) {
+      setCheckIfParenthesis(true);
+        if (calculation === "0") {
+            setCalculation("");
+        }
+        const check = calculation[calculation.length - 1];
+        const numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9","("];
+        if (numbers.includes(check) && checkIfZero) {
+            setCalculation((c) => c + "*(");
+        } else {
+            setCalculation((c) => c + "(");
+        }
+    } else {
+        setCalculation((c) => c + ")");
+        setCheckIfParenthesis(false);
+    }
+}
+
   function clearCalculation() {
     setCalculation((c) => (c = "0"));
     setDisplay((d) => (d = ""));
   }
 
   function removeOne() {
+    const checkIf = calculation[calculation.length - 1]
+    const parenthesis = ["*(", "(", ")"];
     if (calculation.length > 0 && calculation !== "0") {
       setCalculation(calculation.slice(0, -1));
+      if (parenthesis.includes(checkIf)) {
+        if (!checkIfParenthesis) {
+          setCheckIfParenthesis(true);
+        } else {
+          setCheckIfParenthesis(false);
+        }
+      }
     }
   }
 
   function displayResult() {
     try {
-      let result = parseFloat(eval(calculation).toFixed(2));
+        if (calculation[calculation.length - 1] === "(" && calculation[calculation.length - 1] === "*(") {
+          console.log("error");
+        }
+        else {
+          let result = parseFloat(eval(calculation).toFixed(2));
       setDisplay((d) => (d = result));
+        }
     } catch (error) {
       console.log(error);
     }
@@ -66,14 +105,15 @@ function Calcolatrice() {
             <span id="real-time-result">{display}</span>
           </div>
           <div className="risultato-div">
-            <span className="risultato">{calculation}</span>
+            <span className="risultato">{calculation}<div class="flashing-cursor"></div>
+</span>
           </div>
           <div className="tasti-div">
             <div className="tasto" onClick={clearCalculation}>
               C
             </div>
-            <div className="tasto" onClick={() => addOperator("%")}>
-              %
+            <div className="tasto" onClick={() => addParenthesis()}>
+              ( )
             </div>
             <div className="tasto" onClick={removeOne}>
               <span className="material-symbols-outlined">backspace</span>

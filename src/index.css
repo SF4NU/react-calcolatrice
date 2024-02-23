@@ -113,3 +113,24 @@ border-radius: 30px;
 cursor: pointer;
 }
 
+.flashing-cursor {
+  position: absolute;
+  top: 27px;
+  right: 53px;
+  width: 2px; /* Adjust the width of the cursor */
+  height: 45px; /* Adjust the height of the cursor */
+  background-color: #D3F3EE; /* Adjust the color of the cursor */
+  animation: blink-animation 1s infinite; /* Blinking animation */
+}
+
+@keyframes blink-animation {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
