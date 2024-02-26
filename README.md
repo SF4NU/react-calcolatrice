@@ -1,4 +1,4 @@
-# ![Vai Al Sito](https://sf4nu.github.io/react-calcolatrice/)
+# ![Vai Al Sito](https://sf4nu.github.io/react-calcolatrice)
 
 ![Immagine 2024-02-23 165410](https://github.com/SF4NU/react-calcolatrice/assets/129513838/67248d5f-5a8d-4c73-bf3f-402e1dc7cd71)
 
